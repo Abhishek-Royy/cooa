@@ -1,0 +1,300 @@
+De multiplexer:-
+-----------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+entity Demux_1to4 is
+    Port (
+        D : in STD_LOGIC;              
+        Sel : in STD_LOGIC_VECTOR(1 downto 0);  
+        Y : out STD_LOGIC_VECTOR(3 downto 0)    
+    );
+end Demux_1to4;
+
+
+architecture Behavioral of Demux_1to4 is
+begin
+    process (D, Sel)
+    begin
+       
+        Y <= "0000";
+
+        
+        case Sel is
+            when "00" => Y(0) <= D;
+            when "01" => Y(1) <= D;
+            when "10" => Y(2) <= D;
+            when "11" => Y(3) <= D;
+            when others => Y <= "0000";  
+        end case;
+    end process;
+end Behavioral;
+
+
+
+NOR gate
+---------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+entity NOR_Gate is
+    Port (
+        A : in STD_LOGIC;  -- Input A
+        B : in STD_LOGIC;  -- Input B
+        Y : out STD_LOGIC  -- Output Y
+    );
+end NOR_Gate;
+
+
+architecture Behavioral of NOR_Gate is
+begin
+    -- NOR Gate Logic
+    Y <= not (A or B);  
+end Behavioral;
+
+
+
+
+Full Substractor
+-----------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+entity Full_Subtractor is
+    Port (
+        A       : in  STD_LOGIC;  -- Minuend
+        B       : in  STD_LOGIC;  -- Subtrahend
+        Borrow_In : in  STD_LOGIC;  -- Borrow In
+        Difference : out STD_LOGIC;  -- Difference Output
+        Borrow_Out : out STD_LOGIC   -- Borrow Out
+    );
+end Full_Subtractor;
+
+
+architecture Behavioral of Full_Subtractor is
+begin
+  
+    Difference <= (A xor B) xor Borrow_In;  
+    Borrow_Out <= (not A and B) or ((not A or B) and Borrow_In); 
+end Behavioral;
+
+
+
+Multiplexer
+------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+entity Mux_4to1 is
+    Port (
+        D : in STD_LOGIC_VECTOR(3 downto 0);  -- 4 Inputs
+        Sel : in STD_LOGIC_VECTOR(1 downto 0);  -- 2-bit Select Lines
+        Y : out STD_LOGIC  -- Output
+    );
+end Mux_4to1;
+
+
+architecture Behavioral of Mux_4to1 is
+begin
+    process (D, Sel)
+    begin
+        case Sel is
+            when "00" => Y <= D(0);  -- Select Input 0
+            when "01" => Y <= D(1);  -- Select Input 1
+            when "10" => Y <= D(2);  -- Select Input 2
+            when "11" => Y <= D(3);  -- Select Input 3
+            when others => Y <= '0'; -- Default case
+        end case;
+    end process;
+end Behavioral;
+
+
+
+
+Full Adder
+-----------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+-- Full Adder entity declaration
+entity Full_Adder is
+    Port ( A      : in  STD_LOGIC;  -- Input A
+           B      : in  STD_LOGIC;  -- Input B
+           Cin    : in  STD_LOGIC;  -- Carry Input
+           Sum    : out STD_LOGIC;  -- Sum output
+           Cout   : out STD_LOGIC   -- Carry output
+           );
+end Full_Adder;
+
+architecture Behavioral of Full_Adder is
+begin
+    
+    process(A, B, Cin)
+    begin
+      
+        Sum <= (A XOR B) XOR Cin;
+        
+       
+        Cout <= (A AND B) OR (Cin AND (A XOR B));
+    end process;
+end Behavioral;
+
+
+
+
+XOR Gate
+----------
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+entity XOR_Gate is
+    Port (
+        A : in STD_LOGIC;  -- Input A
+        B : in STD_LOGIC;  -- Input B
+        Y : out STD_LOGIC  -- Output Y
+    );
+end XOR_Gate;
+
+
+architecture Behavioral of XOR_Gate is
+begin
+    -- XOR operation
+    Y <= A xor B;
+end Behavioral;
+
+
+
+Half adder
+----------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+
+entity Half_Adder is
+    Port (
+        A     : in  STD_LOGIC; -- Input A
+        B     : in  STD_LOGIC; -- Input B
+        SUM   : out STD_LOGIC; -- Sum Output
+        CARRY : out STD_LOGIC  -- Carry Output
+    );
+end Half_Adder;
+
+
+architecture Behavioral of Half_Adder is
+begin
+   
+    SUM <= A XOR B;
+
+   
+    CARRY <= A AND B;
+end Behavioral;
+
+
+
+Half substractor
+-----------------
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+-- Entity declaration for the Half Subtractor
+entity Half_Subtractor is
+    Port (
+        A : in STD_LOGIC;  -- Minuend
+        B : in STD_LOGIC;  -- Subtrahend
+        Difference : out STD_LOGIC;  -- Difference output
+        Borrow : out STD_LOGIC  -- Borrow output
+    );
+end Half_Subtractor;
+
+-- Architecture definition for the Half Subtractor
+architecture Behavioral of Half_Subtractor is
+begin
+    -- Difference logic: A XOR B
+    Difference <= A XOR B;
+
+    -- Borrow logic: NOT(A) AND B
+    Borrow <= NOT A AND B;
+end Behavioral;
+
+
+
+OR gate
+--------
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity or_gate is
+
+  port (A : in std_logic;
+        B : in std_logic;
+        Y : out std_logic);
+
+end or_gate ;
+
+architecture dataflow of or_gate is
+
+begin
+
+Y <= A or B;
+
+end dataflow;
+
+
+
+AND gate
+--------
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity and_gate is
+
+  port (A : in std_logic;
+        B : in std_logic;
+        Y : out std_logic);
+
+end and_gate ;
+
+architecture dataflow of and_gate is
+
+begin
+
+Y <= A and B;
+
+end dataflow;
+
+
+
+
+NOT gate
+--------
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity not_gate is
+
+  port (A : in std_logic;
+        Y : out std_logic);
+
+end not_gate ;
+
+architecture dataflow of not_gate is
+
+begin
+
+Y <= not B;
+
+end dataflow;
+
+
+
+
+
