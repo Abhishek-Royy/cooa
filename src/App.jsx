@@ -28,11 +28,11 @@ function App() {
       <br /><br /><br />
       <a href="/insertion_Singly_LinkedList.txt">Insertion Singly Linked List</a>
       <br /><br /><br />
-      <a href="/insertion.txt">Implement Insertion Sort</a>
+      <a href="/insertion_Sort.txt">Implement Insertion Sort</a>
       <br /><br /><br />
-      <a href="/linear_search.txt">Implement Linear Search</a>
+      <a href="/linear_Search.txt">Implement Linear Search</a>
       <br /><br /><br />
-      <a href="/merge_sort.txt">Implement Merge Sort</a>
+      <a href="/merge_Sort.txt">Implement Merge Sort</a>
       <br /><br /><br />
       <a href="/pop.txt">Pop Operation</a>
       <br /><br /><br />
