@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a node in the doubly linked list
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+
+// Function to insert a new node at the end of the doubly linked list
+void insertEnd(struct Node** head, int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* temp = *head;
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    // If the list is empty, make the new node the head
+    if (*head == NULL) {
+        newNode->prev = NULL;
+        *head = newNode;
+        return;
+    }
+
+    // Traverse to the last node
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    // Set the new node as the next of the last node
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+// Function to print the doubly linked list
+void printList(struct Node* node) {
+    struct Node* temp = node;
+    printf("Doubly Linked List: ");
+    
+    // Traverse the list from the beginning to the end
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Insert nodes at the end
+    insertEnd(&head, 10);
+    insertEnd(&head, 20);
+    insertEnd(&head, 30);
+    
+    // Print the list
+    printList(head);
+
+    return 0;
+}
+
+
+
+Output
+=-----------
+Doubly Linked List: 10 20 30
+

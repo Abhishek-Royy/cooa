@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for a doubly linked list node
+struct Node {
+    int data;
+    struct Node* prev;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to create a doubly linked list
+struct Node* createDoublyLinkedList(int n) {
+    struct Node *head = NULL, *temp = NULL, *newNode = NULL;
+    int data, i;
+
+    printf("Enter data for %d nodes:\n", n);
+    for (i = 1; i <= n; i++) {
+        printf("Node %d: ", i);
+        scanf("%d", &data);
+
+        newNode = createNode(data);
+        if (head == NULL) {
+            head = newNode; // The first node becomes the head
+        } else {
+            temp->next = newNode; // Link the new node to the end of the list
+            newNode->prev = temp; // Link the previous node to the new node
+        }
+        temp = newNode; // Update the temp pointer to the new node
+    }
+    return head;
+}
+
+// Function to display the doubly linked list
+void displayDoublyLinkedList(struct Node* head) {
+    struct Node* temp = head;
+    printf("Doubly linked list: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int n;
+    struct Node* head = NULL;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    if (n > 0) {
+        head = createDoublyLinkedList(n);
+        displayDoublyLinkedList(head);
+    } else {
+        printf("The number of nodes should be greater than 0.\n");
+    }
+
+    return 0;
+}
+
+
+
+Output
+----------
+Enter the number of nodes: 3
+Enter data for 3 nodes:
+Node 1: 10
+Node 2: 20
+Node 3: 30
+Doubly linked list: 10 20 30

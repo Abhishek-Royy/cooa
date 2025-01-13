@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for the doubly linked list node
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+
+// Function to delete the first node
+void deleteFirstNode(struct Node** head) {
+    if (*head == NULL) {
+        printf("The list is empty. Nothing to delete.\n");
+        return;
+    }
+
+    struct Node* temp = *head;  // Store the current head
+
+    // If there's only one node in the list
+    if ((*head)->next == NULL) {
+        free(*head);  // Free the memory
+        *head = NULL;  // Set head to NULL
+    }
+    else {
+        *head = (*head)->next;  // Move head to the next node
+        (*head)->prev = NULL;  // Set previous of new head to NULL
+        free(temp);  // Free the original head node
+    }
+
+    printf("First node deleted successfully.\n");
+}
+
+// Function to print the doubly linked list
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    if (temp == NULL) {
+        printf("The list is empty.\n");
+        return;
+    }
+
+    printf("Doubly Linked List: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+// Function to insert a new node at the end of the list
+void insertEnd(struct Node** head, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* temp = *head;
+
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (*head == NULL) {
+        newNode->prev = NULL;
+        *head = newNode;
+        return;
+    }
+
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Insert some elements into the doubly linked list
+    insertEnd(&head, 10);
+    insertEnd(&head, 20);
+    insertEnd(&head, 30);
+    insertEnd(&head, 40);
+
+    printf("Original List:\n");
+    printList(head);
+
+    // Delete the first node
+    deleteFirstNode(&head);
+
+    // Print the updated list
+    printf("Updated List:\n");
+    printList(head);
+
+    return 0;
+}
+
+
+
+Output
+----------
+Original List:
+Doubly Linked List: 10 20 30 40 
+First node deleted successfully.
+Updated List:
+Doubly Linked List: 20 30 40 

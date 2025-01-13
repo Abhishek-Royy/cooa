@@ -1,0 +1,166 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure for the node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = newNode; // Pointing to itself for circular behavior
+    return newNode;
+}
+
+// Function to delete a node from the beginning of the circular linked list
+void deleteAtBeginning(struct Node** head) {
+    if (*head == NULL) {
+        printf("List is empty. Nothing to delete.\n");
+        return;
+    }
+
+    struct Node* temp = *head;
+
+    // If there is only one node in the list
+    if ((*head)->next == *head) {
+        free(*head);
+        *head = NULL;
+    }
+    else {
+        struct Node* last = *head;
+        
+        // Traverse the list to find the last node
+        while (last->next != *head) {
+            last = last->next;
+        }
+
+        // Remove the first node and make the last node point to the second node
+        last->next = (*head)->next;
+        *head = (*head)->next;
+        
+        free(temp); // Free the old head node
+    }
+
+    printf("Node deleted from the beginning.\n");
+}
+
+// Function to display the circular linked list
+void display(struct Node* head) {
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* temp = head;
+    do {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    } while (temp != head);
+    printf("(head)\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int choice, data;
+
+    // Menu for performing various operations
+    do {
+        printf("\nCircular Linked List Operations\n");
+        printf("1. Insert at beginning\n");
+        printf("2. Delete at beginning\n");
+        printf("3. Display list\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter data to insert at beginning: ");
+                scanf("%d", &data);
+                {
+                    struct Node* newNode = createNode(data);
+                    if (head == NULL) {
+                        head = newNode;
+                    } else {
+                        struct Node* temp = head;
+                        // Traverse to the last node
+                        while (temp->next != head) {
+                            temp = temp->next;
+                        }
+                        temp->next = newNode;
+                        newNode->next = head;
+                        head = newNode;
+                    }
+                    printf("Node inserted at the beginning.\n");
+                }
+                break;
+
+            case 2:
+                deleteAtBeginning(&head);
+                break;
+
+            case 3:
+                display(head);
+                break;
+
+            case 4:
+                printf("Exiting program.\n");
+                break;
+
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+
+
+
+Output
+------
+Circular Linked List Operations
+1. Insert at beginning
+2. Delete at beginning
+3. Display list
+4. Exit
+Enter your choice: 1
+Enter data to insert at beginning: 10
+Node inserted at the beginning.
+
+Circular Linked List Operations
+1. Insert at beginning
+2. Delete at beginning
+3. Display list
+4. Exit
+Enter your choice: 1
+Enter data to insert at beginning: 20
+Node inserted at the beginning.
+
+Circular Linked List Operations
+1. Insert at beginning
+2. Delete at beginning
+3. Display list
+4. Exit
+Enter your choice: 3
+20 -> 10 -> (head)
+
+Circular Linked List Operations
+1. Insert at beginning
+2. Delete at beginning
+3. Display list
+4. Exit
+Enter your choice: 2
+Node deleted from the beginning.
+
+Circular Linked List Operations
+1. Insert at beginning
+2. Delete at beginning
+3. Display list
+4. Exit
+Enter your choice: 3
+10 -> (head)

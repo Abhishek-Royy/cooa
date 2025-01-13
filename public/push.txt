@@ -1,0 +1,93 @@
+#include <stdio.h>
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+// Function to push an element into the stack
+void push(int element) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow! Cannot push %d\n", element);
+    } else {
+        top++;
+        stack[top] = element;
+        printf("%d pushed into the stack.\n", element);
+    }
+}
+
+// Function to display the elements in the stack
+void display() {
+    if (top == -1) {
+        printf("Stack is empty.\n");
+    } else {
+        printf("Stack elements are:\n");
+        for (int i = top; i >= 0; i--) {
+            printf("%d\n", stack[i]);
+        }
+    }
+}
+
+int main() {
+    int choice, element;
+
+    while (1) {
+        printf("\nStack Operations:\n");
+        printf("1. Push\n");
+        printf("2. Display\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the element to push: ");
+                scanf("%d", &element);
+                push(element);
+                break;
+            case 2:
+                display();
+                break;
+            case 3:
+                printf("Exiting program.\n");
+                return 0;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+    return 0;
+}
+
+
+Output
+------
+Stack Operations:
+1. Push
+2. Display
+3. Exit
+Enter your choice: 1
+Enter the element to push: 10
+10 pushed into the stack.
+
+Stack Operations:
+1. Push
+2. Display
+3. Exit
+Enter your choice: 1
+Enter the element to push: 20
+20 pushed into the stack.
+
+Stack Operations:
+1. Push
+2. Display
+3. Exit
+Enter your choice: 2
+Stack elements are:
+20
+10
+
+Stack Operations:
+1. Push
+2. Display
+3. Exit
+Enter your choice: 3
+Exiting program.

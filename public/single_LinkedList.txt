@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure of a node
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// Function to create a new node
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to create a linked list
+struct Node* createLinkedList() {
+    struct Node* head = NULL;
+    struct Node* temp = NULL;
+    int n, data;
+
+    printf("How many nodes do you want to create? ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter data for node %d: ", i + 1);
+        scanf("%d", &data);
+
+        struct Node* newNode = createNode(data);
+
+        if (head == NULL) {
+            head = newNode;
+        } else {
+            temp->next = newNode;
+        }
+        temp = newNode;
+    }
+
+    return head;
+}
+
+// Function to display the linked list
+void displayLinkedList(struct Node* head) {
+    struct Node* temp = head;
+
+    if (head == NULL) {
+        printf("The linked list is empty.\n");
+        return;
+    }
+
+    printf("Linked list: ");
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    printf("Create a linked list:\n");
+    head = createLinkedList();
+
+    printf("\nDisplaying the linked list:\n");
+    displayLinkedList(head);
+
+    return 0;
+}
